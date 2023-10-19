@@ -7,12 +7,9 @@
 - [Installing Bitcoin Core](#installing-bitcoin-core)
 - [Installing CLN](#installing-cln)
 - [Configuring Bitcoin Core](#bitcoin-config)
-
-**v v v still a WIP v v v**
 - [Learn bitcoin-cli](#bitcoin-cli)
 - [Learn lightning-cli](#lightning-cli)
 
-**^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^**
 
 ## Introduction
 
@@ -156,6 +153,7 @@ CLN start up regtest
 startup_regtest.sh
 
 ## Bitcoin-CLI
+**WORK IN PROGRESS**
 
 `bitcoin-cli -getinfo`
 
@@ -183,6 +181,7 @@ bitcoin-cli listwallets
 
 ```
 
-## Lightning-CLI
+## Lightning-CLI 
+**WORK IN PROGRESS**
 
 

@@ -2,11 +2,20 @@
 
 This is a 2 (maybe 3) part Plebdev workshop series where I will walk you through everything from setting up your development environment to building your first C-Lightning plugin. This will all be live-streamed, and recordings will show up here as they happen.
 
+- [Introduction](#introduction)
 - [Livestream info](#livestreams)
 - [Recoredings](#recordings)
 - [Prerequisites](#prerequisites)
 - [What You'll Need](#what-youll-need)
 - [Getting Started](#getting-started)
+
+## Introduction
+
+Building a CLN plugin was one of what felt like my first 'real' bitcoin projects. The development process involves everything from running a node to writing code and understanding how the underlying protocols are working. For this reason, not only are plugins fun to build, but also a great way to learn! 
+
+In this workshop series, I hope to walk you through every step and get you confident in building plugins. This will require you to get both bitcoin and lightning nodes running on your development machine. Then, we will learn about CLN plugins: what are they, how they work, and how to build them. Finally, we will be building a plugin using the `pyln-client` library.
+
+If you don't already identify as a bitcoin developer, you will certainly earn that title after going through this series.
 
 ## Livestreams
 

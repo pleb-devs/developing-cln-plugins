@@ -1,6 +1,6 @@
 # Workshop Series - Developing CLN Plugins
 
-![picksels_a_schema_of_a_sdk_connexion_to_a_technical_backend_to__e522b251-0bd5-4472-839a-fadb86188e74](https://github.com/pleb-devs/developing-cln-plugins/assets/108303703/fc0b19a1-0872-45f3-9b3a-0abbee859f67)
+![developing-cln-plugins-graphic](https://github.com/pleb-devs/developing-cln-plugins/assets/108303703/010722a5-6d78-44dc-a07a-c8c69f124ced)
 
 This is a 2 (maybe 3) part Plebdev workshop series where I will walk you through everything from setting up your development environment to building your first C-Lightning plugin. This will all be live-streamed, and recordings will show up here as they happen.
 

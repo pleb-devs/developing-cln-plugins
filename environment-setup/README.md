@@ -147,41 +147,199 @@ regtest=1
 ```
 ## Start Your nodes
 
-**EVERYTHING BELOW IS STILL A WIP**
+You should now be able to start a bitcoin node and as many lightning nodes as you want.
 
-CLN start up regtest
-startup_regtest.sh
+Start bitcoind with the following command:
+
+```
+bitcoind -daemon
+```
+
+Stop bitcoin:
+
+```
+bitcoin-cli stop
+```
+
+### startup_regtest.sh
+
+For simplicity, we will use this [handy script](https://github.com/ElementsProject/lightning/blob/master/contrib/startup_regtest.sh) provided in the CLN repo.
+
+To use it, we first run from within the `lightning` directory that we cloned:
+
+```
+source ./contrib/startup_regtest.sh
+```
+
+This will create some functions for us to use. One of them is `start_ln`
+
+Start 2 lightning nodes:
+```
+start_ln 2
+```
+
+**NOTE: ** If you get an error about you wallet, you may need to create a new wallet. That can be done with `bitcoin-cli createwallet "default"`
+
+Now to verify that the nodes are running use the `getinfo` RPC method
+
+```
+l1-cli getinfo
+```
+
+If it's running you should see an output like:
+
+```
+{
+   "id": "038b6f8e52dc4f275d316a345e1d70566b2c1fa0f972e5eb816c0faeda69513a14",
+   "alias": "JUNIORFARM",
+   "color": "038b6f",
+   "num_peers": 1,
+   "num_pending_channels": 0,
+   "num_active_channels": 1,
+   "num_inactive_channels": 0,
+   "address": [],
+   "binding": [
+      {
+         "type": "ipv4",
+         "address": "127.0.0.1",
+         "port": 7272
+      }
+   ],
+   "version": "v22.11.1",
+   "blockheight": 240,
+   "network": "regtest",
+   "fees_collected_msat": 0,
+   "lightning-dir": "/tmp/l2-regtest/regtest",
+   "our_features": {
+      "init": "08a000080269a2",
+      "node": "88a000080269a2",
+      "channel": "",
+      "invoice": "02000000024100"
+   }
+}
+```
+
 
 ## Bitcoin-CLI
-**WORK IN PROGRESS**
 
-`bitcoin-cli -getinfo`
+Here are some bitcoind commands to mess around with:
 
+View chain state:
+```
+bitcoin-cli -getinfo
 ```
 
+List loaded wallets:
+
+```
 bitcoin-cli listwallets
-
 ```
 
-```
-
-alias bt-cli="bitcoin-cli"
+Create a new wallet:
 
 ```
-
+bitcoin-cli createwallet "default"
 ```
 
-bitcoin-cli createwallet "plugindev"
+Get wallet balance:
 
 ```
-
+bitcoin-cli getbalance
 ```
 
-bitcoin-cli listwallets
 
+### Get regtest coins
+
+First you need an address:
+
+```
+bitcoin-cli getnewaddress
+```
+
+Regtest allows you to generate blocks to an address:
+
+```
+bitcoin-cli generatetoaddress 101 "address"
+```
+
+We need to mine 101 blocks so that our coinbase funds can be confirmed.
+
+Now you can verify your balance and should see 50 BTC
+
+```
+bitcoin-cli getbalance
 ```
 
 ## Lightning-CLI 
-**WORK IN PROGRESS**
+
+If you ran the `startup_regtest.sh` script above, you should be able to use lightning-cli with the alias `l#-cli`. For example to access node 1 you would use `l1-cli`.
+
+Use `getinfo` to see connection information:
+
+```
+l2-cli getinfo
+```
+
+In the output, you'll see the `bindings`:
+
+```
+"binding": [
+      {
+         "type": "ipv4",
+         "address": "127.0.0.1",
+         "port": 7272
+      }
+   ],
+```
+
+You can use the above binding along with `l2`'s pubkey to make a peer-to-peer connection. To connect to another node use `connect`:
+
+```
+l1-cli connect 038b6f8e52dc4f275d316a345e1d70566b2c1fa0f972e5eb816c0faeda69513a14@localhost:7272
+```
+
+Connect takes a connection string in the form of pubkey@host:port
+
+Now `l1` is connected to `l2`.
+
+To open a channel, we first need `l1` to have some bitcoin.
+
+Get a new address for `l1`:
+
+```
+l1-cli newaddr
+```
+
+Send funds to `l1` from `bitcoind` (make sure to input the address you just generated):
+
+```
+bt-cli -named sendtoaddress address=<address> amount=1 fee_rate=25
+```
+
+Mine some blocks to get the transaction confirmed:
+
+```
+bt-cli -generate 10
+```
+
+Open a channel from `l1` to `l2`:
+
+```
+l1-cli fundchannel <l2 nodeID/pubkey> <amount>
+```
+
+`l2-cli getinfo` will get you `l2`'s ID.
+
+Finally, get the funding transaction confirmed:
+
+```
+bt-cli -generate 10
+```
+
+Verify you've opened a channel:
+
+```
+l1-cli listchannels
+```
 
 

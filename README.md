@@ -21,10 +21,10 @@ If you don't already identify as a bitcoin developer, you will certainly earn th
 
 ## Livestreams
 
-- Environment Setup - Sunday October, 22 @ 11pm PT -- 1pm CT -- 3pm ET
+- Part #1 - https://youtu.be/akUrePb7xaI?si=w4qd12SZax5kpZJI
   - Get bitcoin and lightning nodes running locally
   - Become familiar with the command line and basic node CLI commands
-- CLN Plugin Architecture - Sunday November, 5 -- **DATE SUBJECT TO CHANGE**
+- CLN Plugin Architecture - Sunday November, 5th @ 3 PM CST
 - Building a CLN Plugin in Python - **TBD**
 
 ## Recordings

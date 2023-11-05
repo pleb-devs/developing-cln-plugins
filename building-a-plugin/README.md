@@ -14,11 +14,11 @@ Basically, we will be adding custom functionality to a c-lightning node using th
 
 2. Python knowledge is helpful as we will be using a Python library
 
-3. Knowledge of bitcoin and lighning like transaction, channels, and invoices
+3. Knowledge of bitcoin and lightning like transactions, channels, and invoices
 
 ## Setup
 
-Assuming you have bitcoind and at least 2 lightning nodes running, there's just a few things we will need to do before we can start building a plugin.
+Assuming you have bitcoind and at least 2 lightning nodes running, there are just a few things we will need to do before we can start building a plugin.
 
 1. Activate a python virtual environment (not entirely necessary)
 
@@ -35,7 +35,7 @@ You'll know this worked if each new line on your terminal has `(venv)`
 pip install pyln-client
 ```
 
-Because we are using a virutal environment, the library will only be accessible from this virtual environment, but it also will not mess up anything with your global python.
+Because we are using a virtual environment, the library will only be accessible from this virtual environment, but it also will not mess up anything with your global python.
 
 3. Start your regtest environment
 
@@ -81,7 +81,7 @@ Commands:
         bt-cli, stop_ln, fund_nodes
 ```
 
-This create aliases for each of the nodes. Inspect the aliases with:
+This creates aliases for each of the nodes. Inspect the aliases with:
 
 ```
 alias l1-cli
@@ -97,11 +97,11 @@ l1-cli getinfo
 bt-cli getblockchaininfo
 ```
 
-Sweet! Now you should have all the dependencies installed and be ready to start building a plugin.
+Sweet! Now you should have all the dependencies installed.
 
 ## Starting a Plugin on Your Node
 
-In order to test your plugin, you will need to run it on a node.
+To test your plugin, you will need to start it on a node.
 
 I created a [helloworld](./helloworld.py) plugin that you can use to test this.
 
@@ -111,7 +111,7 @@ There are a few options to start a plugin. Because we already have our nodes run
 l1-cli plugin start /path/to/your/plugin.py
 ```
 
-> > _NOTE_: Make sure the shebang (that the `#!`) at the top of the plugin file points to python.
+> > _NOTE_: Make sure the shebang (thats the `#!`) at the top of the plugin file points to python.
 
 > > If you set up a virtual env as directed above you should find python in `./venv/bin/python`. You can check by running:
 
@@ -119,7 +119,7 @@ l1-cli plugin start /path/to/your/plugin.py
 which python
 ```
 
-This will output the path to your executable python. For me its at `/home/daim/plebdev/developing-cln-plugins/venv/bin/python`.
+This will output the path to your executable python. For me it's at `/home/daim/plebdev/developing-cln-plugins/venv/bin/python`.
 
 Let's test this out!
 
@@ -129,13 +129,13 @@ Start the `helloworld` plugin on `l1`:
 l1-cli plugin start $(pwd)/helloworld.py
 ```
 
-Veryify that the plugin is running with:
+Verify that the plugin is running with:
 
 ```
 l1-cli plugin list
 ```
 
-and you should see the plugin outputed like:
+and you should see the plugin output like:
 
 ```
  {
@@ -159,13 +159,13 @@ Whenever you make a change to the plugin you are developing, the plugin will nee
 
 To do this, you will need to stop and start the plugin.
 
-Stop the plugin with:
+Stop the plugin with
 
 ```
 l1-cli plugin stop helloworld.py
 ```
 
-Then, start it again with:
+Then, start it again with
 
 ```
 l1-cli plugin start $(pwd)/helloworld.py
@@ -173,7 +173,7 @@ l1-cli plugin start $(pwd)/helloworld.py
 
 ### Auto Restart
 
-This can get a bit annoying everytime you make a change you have to run these two commands.
+This can get a bit annoying every time you make a change you have to run these two commands.
 
 A script for that would be nice...
 
@@ -181,15 +181,15 @@ I made the [restart_plugin](./restart_plugin.sh) script to do just that.
 
 **Make sure that you have the right path set in `PLUGIN_PATH` variable**
 
-This script takes one optional argument to specify the node number you want to stop/start the plugin on. Default is `l1-cli`
+This script takes one optional argument to specify the node number you want to stop/start the plugin on. The default is `l1`
 
-For example, restart the plugin on `l1-cli`:
+For example, restart the plugin on `l1`:
 
 ```
 ./restart_plugin.sh
 ```
 
-Or, restart on `l2-cli`:
+Or, restart on `l2`:
 
 ```
 ./restart_plugin.sh 2
@@ -197,13 +197,13 @@ Or, restart on `l2-cli`:
 
 This is _sort of_ automatic. We can make it more automatic though!
 
-You'll need to have `entr` installed. On Ubuntu you can do this with:
+You'll need to have `entr` installed. On Ubuntu, you can do this with:
 
 ```
 sudo apt install entr
 ```
 
-Now, in a seperate terminal we can watch for any changes to the plugin file and run the restart script whenever a file changes.
+Now, in a separate terminal, we can watch for any changes to the plugin file and run the restart script whenever a file changes.
 
 Open a new terminal, `cd` into your working directory and run:
 
@@ -215,17 +215,17 @@ Try changing then saving `helloworld.py`, and you should see more output in the 
 
 ## Inspecting `getmanifest` and `getinfo`
 
-Alright that was a lot, but now we have everything we need! Let's just checkout the `getmanifest` and `getinfo` requests that get sent by the node to the plugin. If you want to read more about these, check out [A Day in the Life of a Plugin](https://docs.corelightning.org/docs/a-day-in-the-life-of-a-plugin).
+Alright, that was a lot, but now we have everything we need! Let's just check out the `getmanifest` and `getinfo` requests that get sent by the node to the plugin. If you want to read more about these, check out [A Day in the Life of a Plugin](https://docs.corelightning.org/docs/a-day-in-the-life-of-a-plugin).
 
-Another great resource in [lnroom.live](https://lnroom.live). Tony Aldon has a ton of videos going more in depth on building plugins, but the one related to this is [here](https://lnroom.live/2023-03-28-live-0001-understand-cln-plugin-mechanism-with-a-python-example/)
+Another great resource in [lnroom.live](https://lnroom.live). Tony Aldon has a ton of videos going more in-depth on building plugins, but the one related to this is [here](https://lnroom.live/2023-03-28-live-0001-understand-cln-plugin-mechanism-with-a-python-example/)
 
-I will go into a bit more detail in the livestream, but if you want to explore more I highly reccomend Tony's video linked above.
+I will go into a bit more detail in the live stream, but if you want to explore more I highly recommend Tony's video linked above.
 
 I copied Tony's code from that video and added some extra print statements.
 
 Let's change the `PLUGIN_PATH` to `basicplugin.py` which is a plugin that's NOT using `pyln-client`.
 
-Now, the `basicplugin.py` should get started on `l1`. In this plugin there is a `printout` function which will print anything we want to `/tmp/plugin_out`.
+Now, the `basicplugin.py` should get started on `l1`. In this plugin, there is a `printout` function that will print anything we want to `/tmp/plugin_out`.
 
 Inspect the output with:
 
@@ -233,7 +233,7 @@ Inspect the output with:
 cat /tmp/plugin_out
 ```
 
-You can also run in a seperate terminal
+You can also run in a separate terminal
 
 ```
 watch -n 1 cat /tmp/plugin_out
@@ -245,9 +245,9 @@ Take a look at [basicplugin.py](./basicplugin.py) to see what's going on, but th
 
 ## Using `pyln-client`
 
-Finally! This is what we've all been waiting for. The `pyln-client` library abstracts everything that is happenning in `basicplugin.py` into a few simple functions.
+Finally! This is what we've all been waiting for. The `pyln-client` library abstracts everything that is happening in `basicplugin.py` into a few simple functions.
 
-1. Import the library (make sure you set the path to your python)
+1. Import the library (**make sure you set the path to your python**)
 
 ```
 #! /path/to/python
@@ -301,7 +301,7 @@ def myplugin_test(plugin, foo="bar"):
 plugin.run()
 ```
 
-In python, you can use the `@` to "decorate" a function with another function. In this context, the used the `plugin.method` function to set the name of our method to `myplugin-test`. We placed this decorator right above the function that we want to execute when `myplugin-test` is ran, so now whenever you run something like `l1-cli myplugin-test`, the myplugin_test function will be exectuted.
+In python, you can use the `@` to "decorate" a function with another function. In this context, we used the `plugin.method` function to set the name of our method to `myplugin-test`. We placed this decorator right above the function that we want to execute when `myplugin-test` is run, so now whenever you run something like `l1-cli myplugin-test`, the myplugin_test function will be executed.
 
 The syntax is a little weird, but just know that whatever you pass to `@plugin.method` will be the name of your method, and the function defined below that decorator is the function that will be executed whenever that method is used.
 
@@ -309,7 +309,7 @@ The syntax is a little weird, but just know that whatever you pass to `@plugin.m
 
 In the plugin docs, you'll find [different events](https://docs.corelightning.org/docs/event-notifications) that your plugin can subscribe to.
 
-In the spirit of keeping it simple we will subscribe to the [block_added](https://docs.corelightning.org/docs/event-notifications) event, but there are a ton to pick from depending on your needs.
+In the spirit of keeping it simple, we will subscribe to the [block_added](https://docs.corelightning.org/docs/event-notifications) event, but there is a ton to pick from depending on your needs.
 
 5. Use a decorator to add a subscription
 
@@ -348,6 +348,6 @@ If it worked, you should see an output in your node's logs with the block hash a
 
 **Final Note:** I was having a hard time figuring out what _exactly_ needs to be passed to the decorated functions and could not find any clear answers in the code. If you get `TypeError`s it might be because you did not name the parameter correctly.
 
-Send us a message in the [Discord]() if you need help with _any_ of this stuff!!
+Send us a message in the [Discord](https://discord.gg/fpExywWpdA) if you need help with _any_ of this stuff!!
 
 Happy coding :)
